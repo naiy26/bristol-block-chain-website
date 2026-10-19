@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight, Clock3, MapPin } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, CalendarDays, Clock3, MapPin } from "lucide-react";
 import type { Resource, SocietyEvent } from "@/lib/types";
 import { Art } from "./art";
 export function PageHeading({
@@ -27,27 +28,61 @@ export function DemoNotice({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-export function EventCard({ event, onSelect }: { event: SocietyEvent; onSelect?: () => void }) {
+export function EventCard({
+  event,
+  onSelect,
+}: {
+  event: SocietyEvent;
+  onSelect?: () => void;
+}) {
   const date = new Date(`${event.date}T12:00:00Z`);
   return (
-    <article className="event-card">
+    <article
+      className={`event-card${event.poster ? " event-card-featured" : ""}`}
+    >
       <div className="event-image">
-        <Art variant={event.art} />
-        <span className="image-label">{event.category}</span>
-        <div className="date-tile">
-          <span>
-            {date.toLocaleDateString("en-GB", {
-              month: "short",
-              timeZone: "Europe/London",
-            })}
-          </span>
-          <strong>{date.getUTCDate()}</strong>
-        </div>
+        {event.poster ? (
+          <Link
+            href={event.poster}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open full poster for ${event.title}`}
+          >
+            <Image
+              src={event.poster}
+              width={1024}
+              height={1536}
+              alt={event.posterAlt || event.title}
+              className="event-poster"
+              sizes="(max-width: 640px) 90vw, 320px"
+            />
+          </Link>
+        ) : (
+          <>
+            <Art variant={event.art} />
+            <span className="image-label">{event.category}</span>
+            <div className="date-tile">
+              <span>
+                {date.toLocaleDateString("en-GB", {
+                  month: "short",
+                  timeZone: "Europe/London",
+                })}
+              </span>
+              <strong>{date.getUTCDate()}</strong>
+            </div>
+          </>
+        )}
       </div>
       <div className="event-body">
-        <span className="sample-label">SAMPLE EVENT</span>
+        <span className="sample-label">
+          {event.category} · {event.location.split(" · ").at(-1)}
+        </span>
         <h3>{event.title}</h3>
         <div className="event-meta">
+          <span>
+            <CalendarDays size={13} />
+            {event.dateLabel || event.date}
+          </span>
           <span>
             <Clock3 size={13} />
             {event.time}
@@ -61,15 +96,26 @@ export function EventCard({ event, onSelect }: { event: SocietyEvent; onSelect?:
         <div className="card-bottom">
           <span>
             {event.status === "upcoming"
-              ? "All levels welcome"
-              : "Past sample event"}
+              ? "Build, learn & connect"
+              : "Past event"}
           </span>
-          {onSelect ? <button className="event-arrow" onClick={onSelect} aria-label={`View ${event.title}`}><ArrowUpRight size={19} /></button> : <Link
-            href={`/events?event=${event.id}`}
-            aria-label={`View ${event.title}`}
-          >
-            <ArrowUpRight size={19} />
-          </Link>}
+          {onSelect ? (
+            <button
+              className="event-arrow"
+              onClick={onSelect}
+              aria-label={`View ${event.title}`}
+            >
+              Event details <ArrowUpRight size={19} />
+            </button>
+          ) : (
+            <Link
+              href={`/events?event=${event.id}`}
+              aria-label={`View ${event.title}`}
+            >
+              {event.poster && "Event details"}
+              <ArrowUpRight size={19} />
+            </Link>
+          )}
         </div>
       </div>
     </article>

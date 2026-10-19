@@ -1,8 +1,8 @@
-import { Blocks, BookOpen, Code2, Users, ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { Blocks, BookOpen, Code2, Users } from "lucide-react";
 import { PageHeading, SectionTitle } from "@/components/ui";
-import { committee } from "@/data/committee";
-import { Art } from "@/components/art";
+import Image from "next/image";
+import { universityPhoto } from "@/data/media";
+import { societyName } from "@/data/site";
 export const metadata = { title: "Our society" };
 export default function About() {
   return (
@@ -10,26 +10,35 @@ export default function About() {
       <PageHeading
         eyebrow="THE PEOPLE BEHIND THE POSSIBILITIES"
         title="A shared curiosity. An open community."
-        description="Blockchain Bristol brings students together to explore blockchain technology, Web3, and what we can create with them."
+        description={`${societyName} brings students together to explore blockchain technology, Web3, and what we can create with them.`}
       />
       <section className="section story-grid">
-        <Art variant="orbits" />
+        <Image
+          src={universityPhoto.src}
+          width={universityPhoto.width}
+          height={universityPhoto.height}
+          alt={universityPhoto.alt}
+          sizes="(max-width: 640px) 90vw, (max-width: 1120px) 45vw, 500px"
+          className="society-photo"
+        />
         <div>
-          <span className="eyebrow">OUR MISSION</span>
+          <span className="eyebrow">OUR SOCIETY</span>
           <h2>
-            Make the complex
+            From Bristol.
             <br />
-            feel possible.
+            Building together.
           </h2>
           <p>
-            We want to make blockchain education approachable, encourage
-            thoughtful discussion, and give students space to experiment
-            together.
+            We’re a student society at the University of Bristol. We regularly
+            organise groups of students to take part in hackathons, work on
+            projects together, and learn about blockchain as a community.
           </p>
-          <h3>Our vision</h3>
+          <h3>Learn. Build. Take part.</h3>
           <p>
-            A community where students from every discipline can understand,
-            question, and help shape the next generation of digital technology.
+            From sharing blockchain knowledge to turning ideas into working
+            projects, we learn by doing and support each other along the way.
+            Hackathons give us a chance to put those skills into practice
+            together.
           </p>
         </div>
       </section>
@@ -71,34 +80,6 @@ export default function About() {
             );
           })}
         </div>
-      </section>
-      <section className="section" id="committee">
-        <SectionTitle
-          eyebrow="STUDENT LED. COMMUNITY MINDED."
-          title="Meet the committee."
-          description="These are placeholder roles. Committee names and profiles will be added when confirmed."
-        />
-        <div className="values-grid">
-          {committee.map((member, index) => (
-            <article className="committee-card" key={member.role}>
-              <div className={`avatar avatar-${index}`}>
-                <Users size={32} strokeWidth={1.2} />
-              </div>
-              <span className="sample-label">PROFILE COMING SOON</span>
-              <h3>{member.role}</h3>
-              <p>{member.focus}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className="compact-cta">
-        <div>
-          <span className="eyebrow">COME AS YOU ARE</span>
-          <h2>There’s a place for your curiosity.</h2>
-        </div>
-        <Link className="button" href="/join">
-          Join the society <ArrowUpRight size={17} />
-        </Link>
       </section>
     </>
   );

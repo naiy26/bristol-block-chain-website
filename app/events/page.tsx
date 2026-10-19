@@ -7,7 +7,7 @@ export default function EventsPage() {
       <PageHeading
         eyebrow="LEARN SOMETHING. MEET SOMEONE. MAKE SOMETHING."
         title="Your next connection starts here."
-        description="Workshops, conversations, and shared ideas. Discover ways to explore blockchain with the community."
+        description="Join fellow Bristol students at Encode London Hackathon, 23–25 October 2026. Three days to learn, collaborate, and build something together."
       />
       <EventsExplorer />
     </>

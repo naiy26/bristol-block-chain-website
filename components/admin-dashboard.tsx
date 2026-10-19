@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import {
   Users,
   CalendarDays,
@@ -10,6 +11,7 @@ import {
 } from "lucide-react";
 import { events as initialEvents } from "@/data/events";
 import { resources as initialResources } from "@/data/resources";
+import { universityPhoto } from "@/data/media";
 import { DemoNotice, PageHeading } from "./ui";
 type Tab = "Members" | "Events" | "Resources" | "Website content";
 export function AdminDashboard() {
@@ -77,13 +79,14 @@ export function AdminDashboard() {
       />
       <section className="section page-section">
         <DemoNotice>
-          Public prototype · No authentication or database. All records are
-          fictional; edits reset when this page reloads.
+          Public prototype · No authentication or database. Member records are
+          fictional; event information comes from the society’s supplied poster.
+          Edits reset when this page reloads.
         </DemoNotice>
         <div className="admin-stats">
           {[
             [Users, "Sample members", members.length],
-            [CalendarDays, "Sample events", events.length],
+            [CalendarDays, "Events", events.length],
             [BookOpen, "Learning resources", resources.length],
           ].map(([Icon, label, count]) => {
             const I = Icon as typeof Users;
@@ -168,31 +171,76 @@ export function AdminDashboard() {
                 </table>
               </div>
             ) : tab === "Website content" ? (
-              <form
-                className="content-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setMessage(
-                    "Content preview updated in memory. The public website has not changed.",
-                  );
-                }}
-              >
-                <label>
-                  Homepage heading
-                  <textarea
-                    required
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
-                </label>
-                <button className="button" type="submit">
-                  Preview content <ArrowUpRight size={16} />
-                </button>
-                <div className="content-preview">
-                  <span className="sample-label">LOCAL CONTENT PREVIEW</span>
-                  <h3>{content}</h3>
-                </div>
-              </form>
+              <>
+                <form
+                  className="content-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setMessage(
+                      "Content preview updated in memory. The public website has not changed.",
+                    );
+                  }}
+                >
+                  <label>
+                    Homepage heading
+                    <textarea
+                      required
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
+                    />
+                  </label>
+                  <button className="button" type="submit">
+                    Preview content <ArrowUpRight size={16} />
+                  </button>
+                  <div className="content-preview">
+                    <span className="sample-label">LOCAL CONTENT PREVIEW</span>
+                    <h3>{content}</h3>
+                  </div>
+                </form>
+                <section
+                  className="media-source-card"
+                  aria-labelledby="image-sources-title"
+                >
+                  <h3 id="image-sources-title">Image sources</h3>
+                  <div className="media-source-detail">
+                    <Image
+                      src={universityPhoto.src}
+                      width={320}
+                      height={180}
+                      alt={universityPhoto.alt}
+                      sizes="180px"
+                    />
+                    <div>
+                      <span className="sample-label">
+                        ABOUT PAGE · SOCIETY PHOTO
+                      </span>
+                      <h4>University of Bristol</h4>
+                      <p>
+                        Source:{" "}
+                        <a
+                          href={universityPhoto.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {universityPhoto.sourceLabel}{" "}
+                          <ArrowUpRight size={13} />
+                        </a>
+                      </p>
+                      <a
+                        className="media-source-url"
+                        href={universityPhoto.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {universityPhoto.sourceUrl}
+                      </a>
+                      <p className="media-source-note">
+                        {universityPhoto.sourceNote}
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </>
             ) : (
               <div className="admin-records">
                 {(tab === "Events"

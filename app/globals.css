@@ -1,7 +1,90 @@
 @import "tailwindcss";
-.event-dialog{margin:auto;max-height:90vh;overflow:auto;color:var(--ink)}
-.event-dialog::backdrop{background:#24364f66;backdrop-filter:blur(6px)}
-.event-arrow{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#edf7f5;color:var(--teal)}
+.society-photo {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 18px;
+}
+.media-source-card {
+  border-top: 1px solid var(--line);
+  margin-top: 30px;
+  padding-top: 25px;
+}
+.media-source-card > h3 {
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+.media-source-detail {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.media-source-detail > img {
+  display: block;
+  width: 180px;
+  height: auto;
+  border-radius: 8px;
+}
+.media-source-detail h4 {
+  font-size: 13px;
+  margin: 7px 0;
+}
+.media-source-detail p {
+  font-size: 11px;
+}
+.media-source-detail a {
+  color: var(--teal);
+}
+.media-source-detail p a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.media-source-url {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 8px;
+}
+.media-source-detail .media-source-note {
+  font-size: 10px;
+  margin-top: 10px;
+}
+@media (max-width: 640px) {
+  .society-photo {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+  .media-source-detail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .media-source-detail > img {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+.event-dialog {
+  margin: auto;
+  max-height: 90vh;
+  overflow: auto;
+  color: var(--ink);
+}
+.event-dialog::backdrop {
+  background: #24364f66;
+  backdrop-filter: blur(6px);
+}
+.event-arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #edf7f5;
+  color: var(--teal);
+}
 @theme {
   --font-sans: Arial, Helvetica, sans-serif;
 }
@@ -20,7 +103,7 @@ html {
 }
 body {
   margin: 0;
-  background: #e5ebf2;
+  background: #f9fbfd;
   color: var(--ink);
   font:
     14px Arial,
@@ -76,13 +159,10 @@ h3 {
   line-height: 1.4;
 }
 .site-wrap {
-  max-width: 1480px;
-  margin: 26px auto;
-  border: 1px solid white;
-  border-radius: 24px;
+  width: 100%;
+  min-height: 100vh;
   overflow: hidden;
   background: #f9fbfd;
-  box-shadow: 0 20px 70px #59708d0c;
 }
 .site-header {
   height: 92px;
@@ -1619,9 +1699,6 @@ small {
   background: none;
 }
 @media (min-width: 1600px) {
-  .site-wrap {
-    margin: 35px auto;
-  }
   .hero {
     min-height: 620px;
     padding-top: 100px;
@@ -1635,9 +1712,6 @@ small {
   }
 }
 @media (max-width: 1200px) {
-  .site-wrap {
-    margin: 14px;
-  }
   .hero {
     padding-left: 7%;
     min-height: 540px;
@@ -1823,14 +1897,6 @@ small {
   }
 }
 @media (max-width: 640px) {
-  body {
-    background: #f9fbfd;
-  }
-  .site-wrap {
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-  }
   .site-header {
     height: 78px;
     padding: 0 22px;
@@ -2402,5 +2468,444 @@ small {
   *:after {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* A single society trip: keep the supplied portrait poster fully visible. */
+.event-grid-featured {
+  grid-template-columns: minmax(0, 1fr);
+}
+.event-card-featured {
+  display: grid;
+  grid-template-columns: minmax(240px, 310px) minmax(0, 1fr);
+  gap: 18px;
+  padding: 12px;
+}
+.event-card-featured .event-image {
+  height: auto;
+  background: #090b0c;
+}
+.event-poster {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.event-card-featured .event-body {
+  align-self: center;
+  padding: 28px;
+}
+.event-card-featured .sample-label {
+  color: var(--teal);
+  font-size: 10px;
+}
+.event-card-featured h3 {
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 18px 0 24px;
+}
+.event-card-featured .event-meta {
+  gap: 13px;
+  font-size: 12px;
+}
+.event-card-featured .event-meta svg {
+  flex-shrink: 0;
+}
+.event-card-featured .event-body > p {
+  font-size: 13px;
+  margin: 24px 0;
+}
+.event-card-featured .card-bottom {
+  font-size: 11px;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding-top: 20px;
+}
+.event-card-featured .card-bottom > a,
+.event-card-featured .event-arrow {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  border-radius: 7px;
+  padding: 10px 14px;
+  gap: 8px;
+  font-size: 11px;
+}
+.dialog-poster-link {
+  display: block;
+  margin-top: 24px;
+  color: var(--teal);
+  font-size: 12px;
+}
+.dialog-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+@media (max-width: 900px) {
+  .event-card-featured {
+    grid-template-columns: minmax(200px, 270px) minmax(0, 1fr);
+    gap: 4px;
+  }
+  .event-card-featured .event-body {
+    padding: 20px;
+  }
+  .event-card-featured h3 {
+    font-size: 25px;
+  }
+  .event-card-featured .event-meta {
+    font-size: 10px;
+  }
+  .event-card-featured .event-body > p {
+    font-size: 12px;
+  }
+}
+@media (max-width: 640px) {
+  .event-card-featured {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 8px;
+  }
+  .event-card-featured .event-body {
+    padding: 22px 14px 16px;
+  }
+  .event-card-featured .sample-label {
+    font-size: 9px;
+  }
+  .event-card-featured .event-meta {
+    font-size: 11px;
+  }
+  .event-card-featured h3 {
+    font-size: 25px;
+    margin: 12px 0 20px;
+  }
+}
+
+/* Official social channels, with the original supplied WhatsApp QR image. */
+.site-footer .footer-social-link {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+.footer-social-link > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--teal);
+}
+.footer-social-link small {
+  font-size: 9px;
+  line-height: 1.6;
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+}
+.footer-qr {
+  text-align: center;
+}
+.footer-qr a {
+  display: inline-block;
+  border-radius: 9px;
+  overflow: hidden;
+  background: white;
+}
+.footer-main .footer-qr > a {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 0;
+}
+.footer-qr img {
+  width: 150px;
+  height: auto;
+  display: block;
+}
+.footer-qr p {
+  font-size: 9px;
+  margin-top: 8px;
+}
+#community-footer {
+  scroll-margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .footer-main {
+    grid-template-columns: 1.4fr 1fr 1.3fr;
+  }
+  .footer-qr {
+    grid-column: 3;
+    text-align: left;
+  }
+}
+@media (max-width: 640px) {
+  .footer-main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .footer-qr {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+  .footer-qr img {
+    width: 180px;
+  }
+  .footer-qr p {
+    font-size: 10px;
+  }
+  .footer-social-link small {
+    font-size: 8px;
+  }
+}
+
+.site-header .main-nav {
+  margin-left: auto;
+}
+.site-header .menu-button {
+  margin-left: auto;
+}
+.footer-main .footer-qr > .whatsapp-join-button {
+  display: inline-flex;
+  width: auto;
+  margin-top: 13px;
+  padding: 10px 12px;
+  gap: 7px;
+  color: white;
+  background: var(--teal);
+  font-size: 10px;
+  white-space: nowrap;
+}
+.footer-main .footer-qr > .whatsapp-join-button:hover {
+  background: #10776f;
+  color: white;
+}
+.footer-qr img {
+  aspect-ratio: 1;
+  background: white;
+}
+.event-dialog .interest-form-intro {
+  font-size: 12px;
+  margin: 15px 0 20px;
+}
+.interest-form-entry {
+  text-align: center;
+}
+.interest-form-qr {
+  display: block;
+  width: min(260px, 100%);
+  height: auto;
+  margin: 0 auto 20px;
+  background: white;
+  border-radius: 10px;
+}
+.interest-form-entry > a:first-child {
+  display: block;
+}
+.interest-form-button {
+  width: 100%;
+}
+.interest-form-entry > p {
+  font-size: 10px;
+  line-height: 1.7;
+  margin: 12px 0 22px;
+}
+.hackathon-more {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 15px 0;
+}
+.hackathon-more summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--teal);
+}
+.hackathon-more summary:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  .site-header .main-nav {
+    margin-left: 0;
+  }
+  .interest-form-qr {
+    width: min(230px, 100%);
+  }
+}
+
+/* Home: a bridge spanning the hero, with linked blockchain geometry. */
+.hero-bridge {
+  min-height: 620px;
+  padding: 96px 8% 90px;
+  background: linear-gradient(115deg, #eef4fa 15%, #edf5f8 65%, #e1f0f0);
+}
+.hero-bridge .hero-bridge-background {
+  object-fit: fill;
+  opacity: 0.34;
+  mix-blend-mode: multiply;
+  mask-image: linear-gradient(90deg, transparent 1%, #0003 28%, #000 72%);
+  pointer-events: none;
+}
+.hero-bridge .hero-content {
+  max-width: 650px;
+}
+.hero-bridge .hero-chain {
+  width: 43%;
+  height: auto;
+  aspect-ratio: 620 / 430;
+  right: 2%;
+  top: 150px;
+  opacity: 1;
+}
+.blockchain-visual {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero-chain .float-label {
+  right: 5%;
+  bottom: 10px;
+  transform: rotate(-4deg);
+}
+.community-art.community-brand {
+  height: auto;
+  min-height: 0;
+}
+.community-brand .community-logo {
+  display: block;
+  width: min(100%, 280px);
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px #718f9e10;
+}
+@media (max-width: 1100px) {
+  .hero-bridge {
+    padding-left: 6%;
+  }
+  .hero-bridge h1 {
+    font-size: 48px;
+  }
+  .hero-bridge .hero-chain {
+    width: 45%;
+    top: 220px;
+    right: 0;
+  }
+  .hero-bridge .hero-bridge-background {
+    opacity: 0.28;
+  }
+}
+@media (max-width: 900px) {
+  .hero-bridge {
+    min-height: 580px;
+    padding-top: 75px;
+  }
+  .hero-bridge h1 {
+    font-size: 43px;
+  }
+  .hero-bridge .hero-chain {
+    width: 39%;
+    top: 280px;
+    right: 1%;
+  }
+  .hero-chain .float-label {
+    font-size: 8px;
+    padding: 10px;
+  }
+}
+@media (max-width: 640px) {
+  .hero-bridge {
+    min-height: 770px;
+    padding: 44px 24px 0;
+  }
+  .hero-bridge h1 {
+    font-size: 42px;
+  }
+  .hero-bridge .hero-bridge-background {
+    top: auto !important;
+    bottom: 45px !important;
+    height: 345px !important;
+    width: 150% !important;
+    left: -24% !important;
+    opacity: 0.25;
+    mask-image: linear-gradient(
+      180deg,
+      transparent,
+      #000 18%,
+      #000 80%,
+      transparent
+    );
+  }
+  .hero-bridge .hero-chain {
+    width: 94%;
+    height: auto;
+    top: 425px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .hero-chain .float-label {
+    bottom: -6px;
+    right: 7%;
+    font-size: 9px;
+  }
+  .community-brand {
+    margin-bottom: 20px;
+  }
+  .community-brand .community-logo {
+    width: 240px;
+  }
+}
+
+.past-moments {
+  max-width: 1120px;
+  padding-top: 8px;
+  padding-bottom: 32px;
+}
+.past-moments-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.past-moments-heading h2 {
+  font-size: 34px;
+}
+.past-moments-heading p {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.past-moments-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr;
+  gap: 20px;
+}
+.past-moment-card {
+  position: relative;
+  height: clamp(340px, 43vw, 500px);
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e5edf2;
+}
+.past-moment-card img {
+  object-fit: cover;
+}
+@media (max-width: 640px) {
+  .past-moments {
+    padding: 8px 24px 24px;
+  }
+  .past-moments-heading {
+    display: block;
+    margin-bottom: 20px;
+  }
+  .past-moments-heading h2 {
+    font-size: 29px;
+  }
+  .past-moments-heading p {
+    margin-top: 10px;
+  }
+  .past-moments-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .past-moment-card {
+    height: auto;
+    aspect-ratio: 1400 / 946;
+  }
+  .past-moment-card + .past-moment-card {
+    aspect-ratio: 1178 / 1494;
   }
 }

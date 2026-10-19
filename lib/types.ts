@@ -3,12 +3,17 @@ export interface SocietyEvent {
   id: string;
   title: string;
   date: string;
+  dateLabel?: string;
+  endDate?: string;
   time: string;
   location: string;
   description: string;
   category: EventCategory;
   status: "upcoming" | "past";
   art: string;
+  poster?: string;
+  posterAlt?: string;
+  interestForm?: { url: string; qrImage: string };
 }
 export const resourceCategories = [
   "Blockchain Fundamentals",

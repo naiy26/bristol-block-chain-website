@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "@/components/shell";
+import { societyName } from "@/data/site";
 import "./globals.css";
 export const metadata: Metadata = {
   title: {
-    default: "Blockchain Bristol — Build what comes next",
-    template: "%s | Blockchain Bristol",
+    default: `${societyName} — Build what comes next`,
+    template: `%s | ${societyName}`,
   },
   description:
     "A student community at the University of Bristol exploring blockchain, Web3, and the ideas shaping our future. Learn, build, and connect.",

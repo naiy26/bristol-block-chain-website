@@ -3,7 +3,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { ArrowUpRight, Menu, X, MapPin } from "lucide-react";
+import {
+  ArrowUpRight,
+  Instagram,
+  MessageCircle,
+  Menu,
+  X,
+  MapPin,
+} from "lucide-react";
+import { socials } from "@/data/socials";
+import { societyName } from "@/data/site";
 const links = [
   ["/", "Home"],
   ["/about", "About"],
@@ -15,18 +24,18 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header">
-      <Link href="/" className="brand" aria-label="Blockchain Bristol home">
+      <Link href="/" className="brand" aria-label={`${societyName} home`}>
         <Image
           src="/logo.png"
           width={112}
           height={112}
-          alt="Bristol Blockchain official logo"
+          alt={`${societyName} official logo`}
           priority
         />
         <span>
-          Blockchain
+          Bristol University
           <span>
-            Bristol<span className="brand-dot">.</span>
+            Blockchain Society
           </span>
         </span>
       </Link>
@@ -44,17 +53,7 @@ export function Header() {
             {label}
           </Link>
         ))}
-        <Link
-          href="/join"
-          className="button mobile-join"
-          onClick={() => setOpen(false)}
-        >
-          Join the society <ArrowUpRight size={16} />
-        </Link>
       </nav>
-      <Link href="/join" className="button header-join">
-        Join the society <ArrowUpRight size={16} />
-      </Link>
       <button
         className="menu-button"
         onClick={() => setOpen(!open)}
@@ -68,11 +67,11 @@ export function Header() {
 }
 export function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id="community-footer">
       <div className="footer-main">
         <div>
           <Link className="footer-brand" href="/">
-            Blockchain Bristol<span>.</span>
+            {societyName}
           </Link>
           <p>
             Curiosity connects us.
@@ -90,26 +89,64 @@ export function Footer() {
           <Link href="/learn">Learning resources</Link>
         </div>
         <div>
-          <span className="footer-label">GET INVOLVED</span>
-          <Link href="/join">Become a member</Link>
-          <Link href="/about#committee">Meet the committee</Link>
-          <Link href="/admin">Admin prototype</Link>
+          <span className="footer-label">OUR OFFICIAL CHANNELS</span>
+          <a
+            className="footer-social-link"
+            href={socials.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Instagram size={16} />
+            <span>
+              Instagram<small>{socials.instagram.handle}</small>
+            </span>
+            <ArrowUpRight size={13} />
+          </a>
+          <a
+            className="footer-social-link"
+            href={socials.whatsapp.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MessageCircle size={16} />
+            <span>
+              WhatsApp<small>Open our community group</small>
+            </span>
+            <ArrowUpRight size={13} />
+          </a>
         </div>
-        <div className="footer-note">
-          <span className="tiny-orbit">✳</span>
-          <p>
-            For the curious.
-            <br />
-            For the builders.
-            <br />
-            For everyone.
-          </p>
+        <div className="footer-qr">
+          <a
+            href={socials.whatsapp.qrImage}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open official WhatsApp QR code"
+          >
+            <Image
+              src={socials.whatsapp.qrImage}
+              width={256}
+              height={256}
+              alt="Official Bristol Blockchain WhatsApp community QR code"
+              unoptimized
+            />
+          </a>
+          <p>Scan for our WhatsApp community</p>
+          <a
+            className="button whatsapp-join-button"
+            href={socials.whatsapp.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MessageCircle size={15} />
+            Join WhatsApp group
+            <ArrowUpRight size={14} />
+          </a>
         </div>
       </div>
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Blockchain Bristol</span>
+        <span>© {new Date().getFullYear()} {societyName}</span>
         <span>A student community. A shared future.</span>
-        <Link href="/join#privacy">Privacy & membership</Link>
+        <Link href="/admin">Admin prototype</Link>
       </div>
     </footer>
   );
